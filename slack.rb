@@ -8,6 +8,7 @@ class Slack < Sinatra::Base
   post '/postline' do
     content_type :json
     res = {
+        :response_type => 'in_channel',
         :text => nil,
         :attachments => []
     }
