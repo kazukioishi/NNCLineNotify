@@ -22,7 +22,7 @@ class Slack < Sinatra::Base
       status 200
       return res.to_json
     rescue => e
-      logger.info e.backtrace
+      $logger.error e
       res[:text] = '(＠_＠;)Internal server error.'
       status 200
       return res.to_json
