@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'logger'
 require 'active_support'
 require 'active_support/core_ext'
 require './line.rb'
@@ -20,7 +21,8 @@ class Slack < Sinatra::Base
       res[:text] = line.post(params[:text]) == :OK ? '<(｀･ω･´)Sent LINE message.' : '(´・ω・`)Could not send LINE message.`'
       status 200
       return res.to_json
-    rescue
+    rescue => e
+      logger.info e.backtrace
       res[:text] = '(＠_＠;)Internal server error.'
       status 200
       return res.to_json
