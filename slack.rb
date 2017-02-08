@@ -7,6 +7,11 @@ require './line.rb'
 class Slack < Sinatra::Base
   post '/postline' do
     content_type :json
+    #auth
+    if params[:token] != ENV['slack_token']
+      status 403
+      return
+    end
     res = {
         :response_type => 'in_channel',
         :text => nil,
